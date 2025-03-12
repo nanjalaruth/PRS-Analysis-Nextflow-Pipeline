@@ -164,6 +164,6 @@ A summary of the steps followed in our analysis include;
 [Nextflow report](https://github.com/nanjalaruth/PRS-Analysis-Nextflow-Pipeline/blob/main/output/pipeline_info/execution_report.html)
 
 ## Support
-I track open tasks using github's [issues](https://github.com/nanjalaruth/IPRS-Analysis-Nextflow-Pipeline/issues)
+I track open tasks using github's [issues]([https://github.com/nanjalaruth/IPRS-Analysis-Nextflow-Pipeline/issues](https://github.com/nanjalaruth/PRS-Analysis-Nextflow-Pipeline/issues))
 
 ## Citation
