@@ -19,6 +19,21 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
 
 ## Installation 
 ### Data
+1.  Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids with prefix `*_PGS_score_ids.txt` and phenotype files with the prefix `*_pheno.tsv`.
+For example if you are interested in the phenotype, basophil, the folder should have:
+a. Phenotype file named baso_pheno.tsv in this format
+| FID  | IID | baso    |
+|-----------|--------------|---------|
+|94343      |94343         |1.1|
+|94326      |94326         |0.9|
+|94097      |94097         |0.8|
+
+b.PGS score ids (Copy and paste from PGS catalogue in this format)
+
+|PGS003940|
+|PGS004727|
+|PGS004728|
+
 1. SNP Info files
 The info files should be in a tsv format with header information, as shown in the examples below. If your file is in any other format, please convert it to this format using bash, python or R
 The examples are:
@@ -33,9 +48,9 @@ a. hg38 info files named as hg38_snp_info_header.txt
 b. hg37 info files named as hg37_snp_info_header.txt
 | chr_name  | chr_position | rsID    |
 |-----------|--------------|---------|
-| 10   | 76684698    | rs241         |
-| 10   | 96480625    | rs243         |
-| 10   | 20703742    | rs244         |  
+| 10   | 78444456    | rs241         |
+| 10   | 98240382     | rs243         |
+| 10   | 20992671    | rs244         |  
 
 2. The liftover chain files
 Please download:
