@@ -12,10 +12,7 @@
 
 ## Introduction
 
-The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utilizing PGS ids corresponding to various traits. Subsequently, these files are processed to compute PGS scores through PLINK, after which the scores are combined for each trait in preparation for further analysis using ElasticNet
-
-## Workflow
-![pipeline](https://github.com/nanjalaruth/PRS-Analysis-Nextflow-Pipeline/blob/main/output/pipeline_info/output.png)
+The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utilizing PGS ids corresponding to various traits. Subsequently, these files are processed to compute PGS scores through PLINK, after which the scores are combined for each trait in preparation for further analysis using ElasticNet.
 
 ## Installation 
 ### Data
@@ -29,7 +26,7 @@ a. Phenotype file named baso_pheno.tsv in this format
 |94326      |94326         |0.9|
 |94097      |94097         |0.8|
 
-b.PGS score ids (Copy and paste from PGS catalogue in this format)
+b.PGS score ids (Copy and paste from PGS catalogue in this format). The file should have no header, just the IDS.
 ||
 |-----------|
 |PGS003940|
@@ -63,11 +60,9 @@ b. hg38ToHg19.over.chain.gz
 
 ### Tools
 1.Conda
-
-a. [Download Miniconda](https://www.anaconda.com/download/) for your specific OS to your home directory
+- [Download Miniconda](https://www.anaconda.com/download/) for your specific OS to your home directory
     - Linux: `wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh`
-    - Mac: `curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh`
-    
+    - Mac: `curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh`  
 b. Run:
     - `bash Miniconda3-latest-Linux-x86_64.sh`
     - `bash Miniconda3-latest-MacOSX-x86_64.sh`
@@ -122,6 +117,10 @@ Alternatively
  ```
  nextflow pull nanjalaruth/Intergrated_PRS_Analysis
  ```
+
+## Workflow
+![pipeline](https://github.com/nanjalaruth/PRS-Analysis-Nextflow-Pipeline/blob/main/output/pipeline_info/output.png)
+
 ## Output
 [Analysis_output](https://nanje.quarto.pub/intergrated_prs/)
 [Nextflow report]()
