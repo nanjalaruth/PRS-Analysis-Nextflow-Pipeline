@@ -11,8 +11,9 @@
 5.  [Citation](#Citation)
 
 ## Introduction
+In the era of large-scale genomics, efficiently computing Polygenic Scores (PGS) across multiple phenotypes and score IDs is a critical yet complex task. Manual processing is not only time-consuming but also prone to errors, making it difficult to ensure reproducibility and scalability. Our Nextflow pipeline automates the entire PGS computation workflow, enabling seamless integration of genotype data, PGS weights, and phenotype information. By leveraging parallelization, error handling, and robust quality control, this pipeline ensures that PGS scores are computed accurately and efficiently across diverse datasets. Designed for scalability, it allows researchers to process multiple phenotypes with multiple PGS ids simultaneously, making large-scale genetic studies more reproducible, efficient, and easy to maintain.
 
-The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utilizing PGS ids corresponding to various traits. Subsequently, these files are processed to compute PGS scores through PLINK, after which the scores are combined for each trait in preparation for further analysis using ElasticNet.
+The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utilizing PGS IDs corresponding to various traits. Before computing PGS scores, the files are processed to generate necessary inputs, including modifications for liftover (genomic coordinate conversion) and formatting for PLINK-based PGS score calculation. Once the scores are computed, they are combined for each trait in preparation for further analysis using ElasticNet.
 
 ## Installation 
 ### Data
@@ -30,6 +31,7 @@ a. Phenotype file named `baso_pheno.tsv` in this format
 b.PGS score ids called `baso_PGS_score_ids.txt`. 
 - Copy and paste ids from PGS catalogue in the format shown below.
 - The file should have no header, just the IDS.
+  
 ||
 |-----------|
 |PGS003940|
@@ -122,6 +124,16 @@ Alternatively
  ```
 
 ## Workflow
+A summary of the steps followed in our analysis include;
+- Downloading score files from PGS catalogue
+    - modify_score_file_2 (Removes header from output file)
+    - modify_score_file_2 (Renaming rsID to chr_name:chr_position using the `snp info files` and metadata file)
+- Downloading metadata files from PGS catalogue
+- Liftover Genomic coordinates to match target genome build
+    - modify_score_file_3 (modify output to match input for plink)
+- Computes PGS scores using `PLINK V1.9`
+- Modify the output and concatenate scores for each phenotype
+  
 ![pipeline](https://github.com/nanjalaruth/PRS-Analysis-Nextflow-Pipeline/blob/main/output/pipeline_info/output.png)
 
 ## Output
