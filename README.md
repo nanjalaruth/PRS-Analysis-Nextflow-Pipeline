@@ -22,6 +22,7 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
 1.  Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids with prefix `*_PGS_score_ids.txt` and phenotype files with the prefix `*_pheno.tsv`.
 For example if you are interested in the phenotype, basophil, the folder should have:
 a. Phenotype file named baso_pheno.tsv in this format
+
 | FID  | IID | baso    |
 |-----------|--------------|---------|
 |94343      |94343         |1.1|
@@ -29,7 +30,7 @@ a. Phenotype file named baso_pheno.tsv in this format
 |94097      |94097         |0.8|
 
 b.PGS score ids (Copy and paste from PGS catalogue in this format)
-
+|-----------|
 |PGS003940|
 |PGS004727|
 |PGS004728|
