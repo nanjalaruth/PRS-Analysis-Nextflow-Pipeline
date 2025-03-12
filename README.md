@@ -105,23 +105,22 @@ conda install -c bioconda ucsc-liftover
 ```
 
 ##  Running-the-pipeline
-The pipeline does not require installation as `NextFlow` will automatically fetch it from `GitHub`.
 
-- Run pipeline directly by providing paths to the input files as arguments i.e
-```
-nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume \
-    --bloodCells '["baso", "rbc", "wbc"]' \
-    --basePath "/new/path/to/data" \
-    --ref19 "/new/path/to/hg37_snp_info_header.txt" \
-    --ref38 "/new/path/to/hg38_snp_info_header.txt" \
-    --chain_hg19_to_hg38 "/new/path/to/hg19ToHg38.over.chain.gz" \
-    --chain_hg38_to_hg19 "/new/path/to/hg38ToHg19.over.chain.gz" \
-    --target_genome_build 'hg19' \
-    --plink_file '[["UGRC", "/new/path/to/uganda.bed", "/new/path/to/uganda.bim", "/new/path/to/uganda.fam"]]'
-```
+### Required Arguments
+| Argument  | Usage                            | Description                                                          |
+|-----------|----------------------------------|----------------------------------------------------------------------|
+| -profile  | \<base,slurm\>                    | Configuration profile to use. Slurm is a job scheduler, you could otherwise use pbs|
+| --basePath  |  | Directory pattern for PGS Ids and score files      | 
+| --bloodCells  | baso\rbc\wbc | Phenotype file | 
+| --ref19  |  | Genome build 37 SNP Info file with header information | 
+| --ref38  |  | Genome build 38 SNP Info file      | 
+| --chain_hg19_to_hg38  | hg19ToHg38.over.chain.gz | Directory pattern for PGS Ids and score files      | 
+| --chain_hg38_to_hg19  | hg38ToHg19.over.chain.gz | Directory pattern for PGS Ids and score files      | 
+| --plink_file  | bed\bim\fam | PLINK genotype files   | 
+| --target_genome_build| \<hg19\GRCh37>\,<hg38\GRCh38>| Path to the genome build to which the samples will be mapped |
 
-- Alternatively
-Modify the conf/test.config file to suit the path to your data location, i.e
+- The pipeline does not require installation as `NextFlow` will automatically fetch it from `GitHub`.
+- Modify the conf/test.config file to suit the path to your data location, i.e
 ```
 params.bloodCells = ["baso", "rbc", "wbc"]
 params.basePath = "/new/path/to/data"
@@ -139,7 +138,7 @@ plink_file = [
 nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume -c <path to your edited conf/test.config file> 
 ```
 
-## To run the updated version of this pipeline, run:
+### To run the updated version of this pipeline, run:
 
  ```
  nextflow pull nanjalaruth/Intergrated_PRS_Analysis
