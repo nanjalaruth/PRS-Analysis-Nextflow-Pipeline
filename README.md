@@ -6,20 +6,21 @@
 
 1.  [Introduction](#Introduction)
 2.  [Installation](#Installation)
-3.  [Workflow](#Workflow)
-4.  [Output](#Output)
-5.  [Support](#Support)
-6.  [Citation](#Citation)
+3.  [Running the pipeline](#Running-the-pipeline)
+4.  [Workflow](#Workflow)
+5.  [Output](#Output)
+6.  [Support](#Support)
+7.  [Citation](#Citation)
 
 ## Introduction
-In the era of large-scale genomics, efficiently computing Polygenic Scores (PGS) across multiple phenotypes and score IDs is a critical yet complex task. Manual processing is not only time-consuming but also prone to errors, making it difficult to ensure reproducibility and scalability. Our Nextflow pipeline automates the entire PGS computation workflow, enabling seamless integration of genotype data, PGS weights, and phenotype information. By leveraging parallelization, error handling, and robust quality control, this pipeline ensures that PGS scores are computed accurately and efficiently across diverse datasets. Designed for scalability, it allows researchers to process multiple phenotypes with multiple PGS ids simultaneously, making large-scale genetic studies more reproducible, efficient, and easy to maintain.
+In the era of large-scale genomics, efficiently computing Polygenic Scores (PGS) across multiple phenotypes and score IDs is a critical yet complex task. Manual processing is not only time-consuming but also prone to errors, making it difficult to ensure reproducibility and scalability. Our `Nextflow` pipeline automates the entire PGS computation workflow, enabling seamless integration of genotype data, PGS weights, and phenotype information. By leveraging parallelization, error handling, and robust quality control, this pipeline ensures that PGS scores are computed accurately and efficiently across diverse datasets. Designed for scalability, it allows researchers to process multiple phenotypes with multiple PGS ids simultaneously, making large-scale genetic studies more reproducible, efficient, and easy to maintain.
 
 The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utilizing PGS IDs corresponding to various traits. Before computing PGS scores, the files are processed to generate necessary inputs, including modifications for liftover (genomic coordinate conversion) and formatting for PLINK-based PGS score calculation. Once the scores are computed, they are combined for each trait in preparation for further analysis using ElasticNet.
 
 ## Installation 
 ### Data
 1. PGS IDs and Phenotype files
-- Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids files with prefix `*_PGS_score_ids.txt` and phenotype files with the prefix `*_pheno.tsv`.
+- Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids files with suffix `*_PGS_score_ids.txt` and phenotype files with the suffix `*_pheno.tsv`. The prefix for the files should be the same ones used as a tag for the `bloodCells` as used in the subsequent step ` [Running the pipeline](#Running-the-pipeline)` e.g. `baso`.
 - For example if you are interested in the phenotype, `basophil`, the folder should have:
   - Phenotype file named `baso_pheno.tsv` in this format
 
@@ -103,7 +104,7 @@ conda activate liftover
 conda install -c bioconda ucsc-liftover
 ```
 
-## Running the pipeline
+##  Running-the-pipeline
 The pipeline does not require installation as `NextFlow` will automatically fetch it from `GitHub`.
 
 - Run pipeline directly by providing paths to the input files as arguments i.e
