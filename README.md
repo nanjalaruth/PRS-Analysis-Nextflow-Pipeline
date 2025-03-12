@@ -106,17 +106,37 @@ conda install -c bioconda ucsc-liftover
 ## Running the pipeline
 The pipeline does not require installation as `NextFlow` will automatically fetch it from `GitHub`.
 
-### Own data
-Start running your own analysis either by using flags as shown below:
+- Run pipeline directly by providing paths to the input files as arguments i.e
+```
+nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume \
+    --bloodCells '["baso", "rbc", "wbc"]' \
+    --basePath "/new/path/to/data" \
+    --ref19 "/new/path/to/hg37_snp_info_header.txt" \
+    --ref38 "/new/path/to/hg38_snp_info_header.txt" \
+    --chain_hg19_to_hg38 "/new/path/to/hg19ToHg38.over.chain.gz" \
+    --chain_hg38_to_hg19 "/new/path/to/hg38ToHg19.over.chain.gz" \
+    --target_genome_build 'hg19' \
+    --plink_file '[["UGRC", "/new/path/to/uganda.bed", "/new/path/to/uganda.bim", "/new/path/to/uganda.fam"]]'
+```
 
-Run pipeline directly by providing paths to the input files
-
-Alternatively
- Run your own analysis by modifying the conf/test.config file to suit the path to your data location and then run the command as below:
- 
- ```
- nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -c <path to your edited config file> -resume
- ```
+- Alternatively
+Modify the conf/test.config file to suit the path to your data location, i.e
+```
+params.bloodCells = ["baso", "rbc", "wbc"]
+params.basePath = "/new/path/to/data"
+ref19 = "/new/path/to/hg37_snp_info_header.txt"
+ref38 = "/new/path/to/hg38_snp_info_header.txt"
+chain_hg19_to_hg38 = "/new/path/to/hg19ToHg38.over.chain.gz"
+chain_hg38_to_hg19 = "/new/path/to/hg38ToHg19.over.chain.gz"
+target_genome_build = 'hg38'
+plink_file = [
+    ['UGRC', '/new/path/to/uganda.bed', '/new/path/to/uganda.bim', '/new/path/to/uganda.fam']
+]
+```
+ and then run the command as below:
+   ```
+   nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume -c <path to your edited conf/test.config file> 
+   ```
 
 ## To run the updated version of this pipeline, run:
 
@@ -127,11 +147,12 @@ Alternatively
 ## Workflow
 A summary of the steps followed in our analysis include;
 - Downloading score files from PGS catalogue
-    - modify_score_file_2 (Removes header from output file)
-    - modify_score_file_2 (Renaming rsID to chr_name:chr_position using the `snp info files` and metadata file)
+    - modify_score_file (Removes header from output file)
 - Downloading metadata files from PGS catalogue
-- Liftover Genomic coordinates to match target genome build
-    - modify_score_file_3 (modify output to match input for plink)
+    - modify metadata file format   
+    - modify_score_file_2 (Renaming rsID to chr_name:chr_position using the `snp info files` and metadata file)
+- Liftover Genomic coordinates to match target genome build eg `hg38 to hg19`
+    - modify_score_file_3 (modify format of liftover output)
 - Computes PGS scores using `PLINK V1.9`
 - Modify the output and concatenate scores for each phenotype
   
