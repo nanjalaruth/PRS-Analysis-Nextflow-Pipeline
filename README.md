@@ -113,9 +113,9 @@ conda install -c bioconda ucsc-liftover
 | --basePath  |  | Directory pattern for PGS Ids and score files      | 
 | --bloodCells  | baso\rbc\wbc | Phenotype file | 
 | --ref19  |  | Genome build 37 SNP Info file with header information | 
-| --ref38  |  | Genome build 38 SNP Info file      | 
-| --chain_hg19_to_hg38  | hg19ToHg38.over.chain.gz | Directory pattern for PGS Ids and score files      | 
-| --chain_hg38_to_hg19  | hg38ToHg19.over.chain.gz | Directory pattern for PGS Ids and score files      | 
+| --ref38  |  | Genome build 38 SNP Info file with header information     | 
+| --chain_hg19_to_hg38  | hg19ToHg38.over.chain.gz | hg19 to 38 chain file     | 
+| --chain_hg38_to_hg19  | hg38ToHg19.over.chain.gz | hg38 to 19 chain file    | 
 | --plink_file  | bed\bim\fam | PLINK genotype files   | 
 | --target_genome_build| \<hg19\GRCh37>\,<hg38\GRCh38>| Path to the genome build to which the samples will be mapped |
 
@@ -132,9 +132,10 @@ target_genome_build = 'hg38'
 plink_file = [
     ['UGRC', '/new/path/to/uganda.bed', '/new/path/to/uganda.bim', '/new/path/to/uganda.fam']
 ]
+```
 
-# and then run the command as below:
-
+Then run command as below:
+```
 nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume -c <path to your edited conf/test.config file> 
 ```
 
