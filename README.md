@@ -38,7 +38,7 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
       |PGS004727|
       |PGS004728|
 
-2. SNP Info files
+2. SNP Info files for hg19/GRCh37 and hg38/GRCh38 genome builds
 - The info files should be in a tsv format with header information, as shown in the examples below.
 - If your file is in any other format, please convert it to this format using bash, python or R
 - The examples are:
@@ -89,12 +89,12 @@ wget -qO- https://get.nextflow.io | bash
 conda install R
 ```
    
-5. PLINK V1.9
+4. PLINK V1.9
 ```
 https://www.cog-genomics.org/plink/
 ```
    
-6. Liftover
+5. Liftover
 We used conda for installation but feel free to install the liftover tool using other options
 ```
 conda create -n liftover
