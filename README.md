@@ -42,25 +42,25 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
 - The info files should be in a tsv format with header information, as shown in the examples below.
 - If your file is in any other format, please convert it to this format using bash, python or R
 - The examples are:
-a. hg38 info files named as hg38_snp_info_header.txt
+  - hg38 info files named as hg38_snp_info_header.txt
 
-| chr_name  | chr_position | rsID    |
-|-----------|--------------|---------|
-| 10   | 76684698    | rs241         |
-| 10   | 96480625    | rs243         |
-| 10   | 20703742    | rs244         |  
+    | chr_name  | chr_position | rsID    |
+    |-----------|--------------|---------|
+    | 10   | 76684698    | rs241         |
+    | 10   | 96480625    | rs243         |
+    | 10   | 20703742    | rs244         |  
 
-b. hg37 info files named as hg37_snp_info_header.txt
-| chr_name  | chr_position | rsID    |
-|-----------|--------------|---------|
-| 10   | 78444456    | rs241         |
-| 10   | 98240382     | rs243         |
-| 10   | 20992671    | rs244         |  
+  - hg37 info files named as hg37_snp_info_header.txt
+    | chr_name  | chr_position | rsID    |
+    |-----------|--------------|---------|
+    | 10   | 78444456    | rs241         |
+    | 10   | 98240382     | rs243         |
+    | 10   | 20992671    | rs244         |  
 
 3. The liftover chain files
-Please download:
-a. hg19ToHg38.over.chain.gz
-b. hg38ToHg19.over.chain.gz
+- Please download the chain files:
+  - hg19ToHg38.over.chain.gz
+  - hg38ToHg19.over.chain.gz
 
 4. Have your gentype data ready in PLINK format
 
@@ -97,7 +97,6 @@ https://www.cog-genomics.org/plink/
 6. Liftover
 We used conda for installation but feel free to install the liftover tool using other options
 ```
-#Installation using conda
 conda create -n liftover
 conda activate liftover
 conda install -c bioconda ucsc-liftover
