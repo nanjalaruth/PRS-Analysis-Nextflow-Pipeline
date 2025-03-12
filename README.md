@@ -62,15 +62,15 @@ b. hg38ToHg19.over.chain.gz
 1.Conda
 - [Download Miniconda](https://www.anaconda.com/download/) for your specific OS to your home directory
     - Linux: `wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh`
-    - Mac: `curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh`  
-b. Run:
+    - Mac: `curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh`
+- Run:
     - `bash Miniconda3-latest-Linux-x86_64.sh`
     - `bash Miniconda3-latest-MacOSX-x86_64.sh`
-c. Follow all the prompts: if unsure, accept defaults
-d. Close and re-open your terminal
-e. If the installation is successful, you should see a list of installed packages with
+- Follow all the prompts: if unsure, accept defaults
+- Close and re-open your terminal
+- If the installation is successful, you should see a list of installed packages with
     - `conda list`
-If the command cannot be found, you can add Anaconda bin to the path using:
+- If the command cannot be found, you can add Anaconda bin to the path using:
     ` export PATH=~/miniconda3/bin:$PATH`
     
 2. Nextflow
