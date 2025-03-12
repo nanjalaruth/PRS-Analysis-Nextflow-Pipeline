@@ -5,10 +5,11 @@
 ## Table of Contents
 
 1.  [Introduction](#Introduction)
-2.  [Workflow](#Workflow)
-3.  [Installation](#Installation)
-4.  [Support](#Support)
-5.  [Citation](#Citation)
+2.  [Installation](#Installation)
+3.  [Workflow](#Workflow)
+4.  [Output](#Output)
+5.  [Support](#Support)
+6.  [Citation](#Citation)
 
 ## Introduction
 In the era of large-scale genomics, efficiently computing Polygenic Scores (PGS) across multiple phenotypes and score IDs is a critical yet complex task. Manual processing is not only time-consuming but also prone to errors, making it difficult to ensure reproducibility and scalability. Our Nextflow pipeline automates the entire PGS computation workflow, enabling seamless integration of genotype data, PGS weights, and phenotype information. By leveraging parallelization, error handling, and robust quality control, this pipeline ensures that PGS scores are computed accurately and efficiently across diverse datasets. Designed for scalability, it allows researchers to process multiple phenotypes with multiple PGS ids simultaneously, making large-scale genetic studies more reproducible, efficient, and easy to maintain.
