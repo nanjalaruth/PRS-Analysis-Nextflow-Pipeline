@@ -1,0 +1,146 @@
+digraph "pipeline_dag" {
+v0 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromList"];
+v1 [label="download_score_files"];
+v0 -> v1 [label="input"];
+
+v1 [label="download_score_files"];
+v4 [label="modify_score_file"];
+v1 -> v4;
+
+v0 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromList"];
+v2 [label="download_meta_files"];
+v0 -> v2 [label="input"];
+
+v2 [label="download_meta_files"];
+v3 [label="modify_meta_file"];
+v2 -> v3;
+
+v3 [label="modify_meta_file"];
+v9 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v3 -> v9;
+
+v4 [label="modify_score_file"];
+v7 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v4 -> v7;
+
+v5 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v7 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v5 -> v7 [label="hg19ref"];
+
+v6 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v8 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v6 -> v8 [label="hg38ref"];
+
+v7 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v8 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v7 -> v8;
+
+v8 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v9 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v8 -> v9;
+
+v9 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v10 [label="modify_score_file_2"];
+v9 -> v10 [label="final_input"];
+
+v10 [label="modify_score_file_2"];
+v13 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v10 -> v13;
+
+v11 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v18 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v11 -> v18 [label="chain_hg19_to_hg38"];
+
+v12 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v19 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v12 -> v19 [label="chain_hg38_to_hg19"];
+
+v5 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v13 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v5 -> v13 [label="hg19ref"];
+
+v13 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v14 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v13 -> v14;
+
+v6 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromPath"];
+v14 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v6 -> v14 [label="hg38ref"];
+
+v14 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v15 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v14 -> v15;
+
+v3 [label="modify_meta_file"];
+v15 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v3 -> v15;
+
+v15 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v17 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v15 -> v17;
+
+v16 [shape=point,label="",fixedsize=true,width=0.1];
+v17 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v16 -> v17 [label="tgt_genome_build"];
+
+v17 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v18 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v17 -> v18;
+
+v18 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v19 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v18 -> v19;
+
+v19 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v20 [label="liftover"];
+v19 -> v20 [label="input"];
+
+v20 [label="liftover"];
+v21 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v20 -> v21;
+
+v10 [label="modify_score_file_2"];
+v21 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v10 -> v21;
+
+v21 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v22 [label="modify_score_file_3"];
+v21 -> v22 [label="modify_3_ch"];
+
+v22 [label="modify_score_file_3"];
+v24 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v22 -> v24;
+
+v23 [shape=point,label="",fixedsize=true,width=0.1,xlabel="Channel.fromList"];
+v24 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v23 -> v24 [label="plink_ch"];
+
+v24 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="combine"];
+v25 [label="compute_pgs_scores"];
+v24 -> v25 [label="pgs_ch"];
+
+v25 [label="compute_pgs_scores"];
+v26 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="map"];
+v25 -> v26;
+
+v26 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="map"];
+v27 [label="modify_pgs_scores"];
+v26 -> v27 [label="in"];
+
+v27 [label="modify_pgs_scores"];
+v28 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="map"];
+v27 -> v28;
+
+v28 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="map"];
+v29 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="groupTuple"];
+v28 -> v29;
+
+v29 [shape=circle,label="",fixedsize=true,width=0.1,xlabel="groupTuple"];
+v30 [label="conc_scores"];
+v29 -> v30 [label="input"];
+
+v30 [label="conc_scores"];
+v31 [shape=point];
+v30 -> v31;
+
+}
