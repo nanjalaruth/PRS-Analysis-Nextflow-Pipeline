@@ -31,7 +31,7 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
       |94097      |94097         |0.8|
 
   - PGS score ids called `baso_PGS_score_ids.txt`. 
-    - Copy and paste ids from PGS catalogue in the format shown below.
+    - Copy and paste ids from [PGS catalogue](https://www.pgscatalog.org/) in the format shown below.
     - The file should have no header, just the IDS.
   
       ||
@@ -44,7 +44,7 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
 - The info files should be in a tsv format with header information, as shown in the examples below.
 - If your file is in any other format, please convert it to this format using bash, python or R
 - The examples are:
-  - hg38 info files named as hg38_snp_info_header.txt
+  - hg38 info files named as `hg38_snp_info_header.txt`
 
     | chr_name  | chr_position | rsID    |
     |-----------|--------------|---------|
@@ -52,7 +52,7 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
     | 10   | 96480625    | rs243         |
     | 10   | 20703742    | rs244         |  
 
-  - hg37 info files named as hg37_snp_info_header.txt
+  - hg37 info files named as `hg37_snp_info_header.txt`
     | chr_name  | chr_position | rsID    |
     |-----------|--------------|---------|
     | 10   | 78444456    | rs241         |
@@ -134,10 +134,10 @@ plink_file = [
     ['UGRC', '/new/path/to/uganda.bed', '/new/path/to/uganda.bim', '/new/path/to/uganda.fam']
 ]
 
- # and then run the command as below:
+# and then run the command as below:
 
-   nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume -c <path to your edited conf/test.config file> 
-   ```
+nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume -c <path to your edited conf/test.config file> 
+```
 
 ## To run the updated version of this pipeline, run:
 
@@ -161,9 +161,9 @@ A summary of the steps followed in our analysis include;
 
 ## Output
 [Analysis_output](https://nanje.quarto.pub/intergrated_prs/)
-[Nextflow report]()
+[Nextflow report](https://github.com/nanjalaruth/PRS-Analysis-Nextflow-Pipeline/blob/main/output/pipeline_info/execution_report.html)
 
 ## Support
-I track open tasks using github's [issues](https://github.com/nanjalaruth/Intergrated_PRS_Analysis/issues)
+I track open tasks using github's [issues](https://github.com/nanjalaruth/IPRS-Analysis-Nextflow-Pipeline/issues)
 
 ## Citation
