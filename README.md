@@ -30,7 +30,7 @@ a. Phenotype file named baso_pheno.tsv in this format
 |94097      |94097         |0.8|
 
 b.PGS score ids (Copy and paste from PGS catalogue in this format)
-
+||
 |-----------|
 |PGS003940|
 |PGS004727|
@@ -67,6 +67,7 @@ b. hg38ToHg19.over.chain.gz
 a. [Download Miniconda](https://www.anaconda.com/download/) for your specific OS to your home directory
     - Linux: `wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh`
     - Mac: `curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh`
+    
 b. Run:
     - `bash Miniconda3-latest-Linux-x86_64.sh`
     - `bash Miniconda3-latest-MacOSX-x86_64.sh`
