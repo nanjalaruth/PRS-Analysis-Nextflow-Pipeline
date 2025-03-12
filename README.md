@@ -133,9 +133,9 @@ target_genome_build = 'hg38'
 plink_file = [
     ['UGRC', '/new/path/to/uganda.bed', '/new/path/to/uganda.bim', '/new/path/to/uganda.fam']
 ]
-```
- and then run the command as below:
-   ```
+
+ # and then run the command as below:
+
    nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume -c <path to your edited conf/test.config file> 
    ```
 
