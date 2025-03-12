@@ -23,6 +23,7 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
 The info files should be in a tsv format with header information, as shown in the examples below. If your file is in any other format, please convert it to this format using bash, python or R
 The examples are:
 a. hg38 info files named as hg38_snp_info_header.txt
+
 | chr_name  | chr_position | rsID    |
 |-----------|--------------|---------|
 | 10   | 76684698    | rs241         |
