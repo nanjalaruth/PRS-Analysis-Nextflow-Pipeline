@@ -30,12 +30,13 @@ a. Phenotype file named baso_pheno.tsv in this format
 |94097      |94097         |0.8|
 
 b.PGS score ids (Copy and paste from PGS catalogue in this format)
+
 |-----------|
 |PGS003940|
 |PGS004727|
 |PGS004728|
 
-1. SNP Info files
+2. SNP Info files
 The info files should be in a tsv format with header information, as shown in the examples below. If your file is in any other format, please convert it to this format using bash, python or R
 The examples are:
 a. hg38 info files named as hg38_snp_info_header.txt
@@ -53,12 +54,12 @@ b. hg37 info files named as hg37_snp_info_header.txt
 | 10   | 98240382     | rs243         |
 | 10   | 20992671    | rs244         |  
 
-2. The liftover chain files
+3. The liftover chain files
 Please download:
 a. hg19ToHg38.over.chain.gz
 b. hg38ToHg19.over.chain.gz
 
-3. Have your gentype data ready in PLINK format
+4. Have your gentype data ready in PLINK format
 
 ### Tools
 1.Conda
