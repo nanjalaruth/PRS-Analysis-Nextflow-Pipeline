@@ -19,7 +19,7 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
 
 ## Installation 
 ### Data
-1. PGS IDs and Phenotype files
+1. PGS IDs files
 - Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids files with suffix `*_PGS_score_ids.txt`. The prefix for the files should be the same ones used as a tag for the `bloodCells` as used in the subsequent step `#Running-the-pipeline` e.g. `baso`.
 - For example if you are interested in the phenotype, `basophil`, the folder should have a PGS score ids called `baso_PGS_score_ids.txt`. 
     - Copy and paste ids from [PGS catalogue](https://www.pgscatalog.org/) in the format shown below.
