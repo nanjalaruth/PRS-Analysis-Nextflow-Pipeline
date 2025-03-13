@@ -142,7 +142,7 @@ nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume -
 ### To run the updated version of this pipeline, run:
 
  ```
- nextflow pull nanjalaruth/Intergrated_PRS_Analysis
+ nextflow pull nanjalaruth/PRS-Analysis-Nextflow-Pipeline
  ```
 
 ## Workflow
