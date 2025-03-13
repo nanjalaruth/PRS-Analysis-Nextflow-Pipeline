@@ -100,10 +100,10 @@ conda install -c bioconda ucsc-liftover
 ### Required Arguments
 | Argument  | Usage                            | Description                                                          |
 |-----------|----------------------------------|----------------------------------------------------------------------|
-| --basePath  |  | Directory pattern for PGS Ids files      | 
+| --basePath  | /new/path/to/all_blood_traits_prs_scores | Directory pattern for PGS Ids files      | 
 | --bloodCells  | baso\rbc\wbc | Phenotype file | 
-| --ref19  |  | Genome build 37 SNP Info file with header information | 
-| --ref38  |  | Genome build 38 SNP Info file with header information     | 
+| --ref19  | hg37_snp_info_header.txt | Genome build 37 SNP Info file with header information | 
+| --ref38  | hg38_snp_info_header.txt | Genome build 38 SNP Info file with header information     | 
 | --chain_hg19_to_hg38  | hg19ToHg38.over.chain.gz | hg19 to 38 chain file     | 
 | --chain_hg38_to_hg19  | hg38ToHg19.over.chain.gz | hg38 to 19 chain file    | 
 | --plink_file  | bed\bim\fam | PLINK genotype files   | 
