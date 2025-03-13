@@ -101,7 +101,7 @@ conda install -c bioconda ucsc-liftover
 | Argument  | Usage                            | Description                                                          |
 |-----------|----------------------------------|----------------------------------------------------------------------|
 | --basePath  | /new/path/to/all_blood_traits_prs_scores | Directory pattern for PGS Ids files      | 
-| --bloodCells  | baso\rbc\wbc | Phenotype file | 
+| --bloodCells  | baso\rbc\wbc | Names of your phenotypes | 
 | --ref19  | hg37_snp_info_header.txt | Genome build 37 SNP Info file with header information | 
 | --ref38  | hg38_snp_info_header.txt | Genome build 38 SNP Info file with header information     | 
 | --chain_hg19_to_hg38  | hg19ToHg38.over.chain.gz | hg19 to 38 chain file     | 
@@ -110,7 +110,7 @@ conda install -c bioconda ucsc-liftover
 | --target_genome_build| \<hg19\GRCh37>\,<hg38\GRCh38>| Path to the genome build to which the samples will be mapped |
 
 - The pipeline does not require installation as `NextFlow` will automatically fetch it from `GitHub`.
-- Modify the conf/test.config file to suit the path to your data location, i.e
+- Modify the conf/test.config file particularly the lines below to suit the path to your data location:
 ```
 params.bloodCells = ["baso", "rbc", "wbc"]
 params.basePath = "/new/path/to/data"
