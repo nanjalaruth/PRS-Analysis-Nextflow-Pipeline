@@ -100,7 +100,7 @@ conda install -c bioconda ucsc-liftover
 ### Required Arguments
 | Argument  | Usage                            | Description                                                          |
 |-----------|----------------------------------|----------------------------------------------------------------------|
-| --basePath  |  | Directory pattern for PGS Ids and score files      | 
+| --basePath  |  | Directory pattern for PGS Ids files      | 
 | --bloodCells  | baso\rbc\wbc | Phenotype file | 
 | --ref19  |  | Genome build 37 SNP Info file with header information | 
 | --ref38  |  | Genome build 38 SNP Info file with header information     | 
