@@ -109,7 +109,6 @@ conda install -c bioconda ucsc-liftover
 ### Required Arguments
 | Argument  | Usage                            | Description                                                          |
 |-----------|----------------------------------|----------------------------------------------------------------------|
-| -profile  | \<base,slurm\>                    | Configuration profile to use. Slurm is a job scheduler, you could otherwise use pbs|
 | --basePath  |  | Directory pattern for PGS Ids and score files      | 
 | --bloodCells  | baso\rbc\wbc | Phenotype file | 
 | --ref19  |  | Genome build 37 SNP Info file with header information | 
@@ -136,7 +135,7 @@ plink_file = [
 
 Then run command as below:
 ```
-nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -profile slurm -resume -c <path to your edited conf/test.config file> 
+nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -resume -c <path to your edited conf/test.config file> 
 ```
 
 ### To run the updated version of this pipeline, run:
