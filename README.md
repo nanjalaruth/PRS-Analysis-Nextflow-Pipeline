@@ -129,6 +129,11 @@ Then run command as below:
 nextflow run nanjalaruth/PRS-Analysis-Nextflow-Pipeline -resume -c <path to your edited conf/test.config file> 
 ```
 
+If you have cloned the Github repository, run it as:
+```
+nextflow run main.nf -resume -c <path to your edited conf/test.config file> 
+```
+
 ### To run the updated version of this pipeline, run:
 
  ```
