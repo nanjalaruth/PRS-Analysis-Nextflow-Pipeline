@@ -7,12 +7,13 @@ process download_score_files {
         tuple val(blood_trait), val(pgs_id)
 
     output:
-        tuple val(blood_trait), val(pgs_id), path("${pgs_id}.txt")
+        tuple val(blood_trait), val(pgs_id), path("${pgs_id}_hmPOS_GRCh37.txt")
 
     script:
         """
-        curl -O https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/${pgs_id}/ScoringFiles/${pgs_id}.txt.gz
-        gunzip ${pgs_id}.txt.gz
+        #curl -O https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/${pgs_id}/ScoringFiles/${pgs_id}.txt.gz
+        curl -O https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/${pgs_id}/ScoringFiles/Harmonized/${pgs_id}_hmPOS_GRCh37.txt.gz
+        gunzip ${pgs_id}_hmPOS_GRCh37.txt.gz
         """
         
 }
@@ -204,7 +205,7 @@ process modify_score_file_3 {
     tag "Modifying score file for ${blood_trait}_${pgs_id}"
     
     input:
-        tuple val(blood_trait), val(pgs_id), path(edit_2), path(edit_3)
+        tuple val(blood_trait), val(pgs_id), path(mod1)
 
     output:
         tuple val(blood_trait), val(pgs_id), path("${blood_trait}_${pgs_id}_modified.txt")
@@ -320,77 +321,66 @@ workflow{
     //modify_ch.view()
     modify_score_file(modify_ch)
 
-    //step 2.2
-    hg19ref = Channel.fromPath(params.ref19)
-    hg38ref = Channel.fromPath(params.ref38)
-    input = modify_score_file.out
-    final_input = input
-        .combine(hg19ref)
-        .combine(hg38ref)
-        .combine(modify_meta_file.out, by:[0,1])
-    //input.view()
-    modify_score_file_2(final_input)
+    ////step 2.2
+    // hg19ref = Channel.fromPath(params.ref19)
+    // hg38ref = Channel.fromPath(params.ref38)
+    // input = modify_score_file.out
+    // final_input = input
+    //     .combine(hg19ref)
+    //     .combine(hg38ref)
+    //     .combine(modify_meta_file.out, by:[0,1])
+    // //input.view()
+    // modify_score_file_2(final_input)
 
-    // liftover hg38 to hg19
-    tgt_genome_build = Channel.value(params.target_genome_build)
-    chain_hg19_to_hg38 = Channel.fromPath(params.chain_hg19_to_hg38)
-    chain_hg38_to_hg19 = Channel.fromPath(params.chain_hg38_to_hg19)
-    input = modify_score_file_2.out
-        .combine(hg19ref)
-        .combine(hg38ref)
-        .combine(modify_meta_file.out, by:[0,1])
-        .combine(tgt_genome_build)
-        .combine(chain_hg19_to_hg38)
-        .combine(chain_hg38_to_hg19)
-    //input.view()
-    liftover(input)
+    // // liftover hg38 to hg19
+    // tgt_genome_build = Channel.value(params.target_genome_build)
+    // chain_hg19_to_hg38 = Channel.fromPath(params.chain_hg19_to_hg38)
+    // chain_hg38_to_hg19 = Channel.fromPath(params.chain_hg38_to_hg19)
+    // input = modify_score_file_2.out
+    //     .combine(hg19ref)
+    //     .combine(hg38ref)
+    //     .combine(modify_meta_file.out, by:[0,1])
+    //     .combine(tgt_genome_build)
+    //     .combine(chain_hg19_to_hg38)
+    //     .combine(chain_hg38_to_hg19)
+    // //input.view()
+    // liftover(input)
 
-    //step 2.3
-    modify_3_ch = modify_score_file_2.out
-    .combine(liftover.out, by:[0,1])
+    // //step 2.3
+    // modify_3_ch = modify_score_file_2.out
+    // .combine(liftover.out, by:[0,1])
+    // //modify_3_ch.view()
+    // modify_score_file_3(modify_3_ch)
+
+     //step 2.3
+    modify_3_ch = modify_score_file.out
     //modify_3_ch.view()
     modify_score_file_3(modify_3_ch)
 
-    //step 3
-    // calculate pgs score
+    // //step 3
+    // // calculate pgs score
     modify_score_out = modify_score_file_3.out
     plink_ch = Channel.fromList(params.plink_file)
+    //plink_ch.view()
     pgs_ch = modify_score_out.combine(plink_ch)
-    //pgs_ch.view()
+    // pgs_ch.view()
     compute_pgs_scores(pgs_ch)
 
-    //// for batch computing
-    ////modify_score_out = modify_score_file_3.out
-    ////plink_ch = Channel
-    ////.from(params.batches)
-    ////.map { batch ->
-        //// Construct file paths based on the naming format
-        ////def bed_file = "${params.path}/${params.prefix}${batch}${params.suffix}.bed"
-        ////def bim_file = "${params.path}/${params.prefix}${batch}${params.suffix}.bim"
-        ////def fam_file = "${params.path}/${params.prefix}${batch}${params.suffix}.fam"
-        
-        //// Return the batch and associated file paths as a list
-        ////[batch, bed_file, bim_file, fam_file]
-    ////}
-    ////pgs_ch = modify_score_out.combine(plink_ch)
-    ////pgs_ch.view()
-    ////compute_pgs_scores(pgs_ch)
-   
-
-    //step 3.2 modify_pgs_scores
+    // // //step 3.2 modify_pgs_scores
     in = compute_pgs_scores.out
-     .map{dset, btrait, pgsid, pgs_score -> [dset, btrait, pgsid, pgs_score[2]]}
-     ////in.view()
+    //     .map{dset, btrait, pgsid, pgs_score -> [dset, btrait, pgsid, pgs_score[3]]} // in ugrc
+         .map{dset, btrait, pgsid, pgs_score -> [dset, btrait, pgsid, pgs_score[2]]} //in zulu data
+    // in.view()
     modify_pgs_scores(in)
 
-    //step 3.3 conc scores
+    // //step 3.3 conc scores
     input = modify_pgs_scores.out
-      //  //.map{dset, btrait, pgsid, pgs_score -> [btrait, pgs_score]}
-        //// .groupTuple()
-        .map{dset, btrait, pgsid, pgs_score -> [dset, btrait, pgs_score]}
-        .groupTuple(by: [0, 1])
+         //.map{dset, btrait, pgsid, pgs_score -> [btrait, pgs_score]}
+    //     .groupTuple()
+    .map{dset, btrait, pgsid, pgs_score -> [dset, btrait, pgs_score]}
+    .groupTuple(by: [0, 1])
        
-    //input.view()
+    // // // input.view()
     conc_scores(input)
 
     ////step 4 Intergrate scores
@@ -411,5 +401,23 @@ workflow{
         //.combine(trait)
     //input.view()
     //association_analysis(input)
+
+
+    //// for batch computing
+    ////modify_score_out = modify_score_file_3.out
+    ////plink_ch = Channel
+    ////.from(params.batches)
+    ////.map { batch ->
+        //// Construct file paths based on the naming format
+        ////def bed_file = "${params.path}/${params.prefix}${batch}${params.suffix}.bed"
+        ////def bim_file = "${params.path}/${params.prefix}${batch}${params.suffix}.bim"
+        ////def fam_file = "${params.path}/${params.prefix}${batch}${params.suffix}.fam"
+        
+        //// Return the batch and associated file paths as a list
+        ////[batch, bed_file, bim_file, fam_file]
+    ////}
+    ////pgs_ch = modify_score_out.combine(plink_ch)
+    ////pgs_ch.view()
+    ////compute_pgs_scores(pgs_ch)
    
 }
