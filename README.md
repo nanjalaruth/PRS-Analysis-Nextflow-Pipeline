@@ -2,8 +2,8 @@
 
 [![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A520.04.0-brightgreen.svg)](https://www.nextflow.io/)
 
-## Table of Contents
 
+## Table of Contents
 1.  [Introduction](#Introduction)
 2.  [Installation](#Installation)
 3.  [Running the pipeline](#Running-the-pipeline)
@@ -12,53 +12,33 @@
 6.  [Support](#Support)
 7.  [Citation](#Citation)
 
+
 ## Introduction
 In the era of large-scale genomics, efficiently computing Polygenic Scores (PGS) across multiple phenotypes and score IDs is a critical yet complex task. Manual processing is not only time-consuming but also prone to errors, making it difficult to ensure reproducibility and scalability. Our `Nextflow` pipeline automates the entire PGS computation workflow, enabling seamless integration of genotype data, PGS weights, and phenotype information. By leveraging parallelization, error handling, and robust quality control, this pipeline ensures that PGS scores are computed accurately and efficiently across diverse datasets. Designed for scalability, it allows researchers to process multiple phenotypes with multiple PGS ids simultaneously, making large-scale genetic studies more reproducible, efficient, and easy to maintain.
 
 The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utilizing PGS IDs corresponding to various traits. Before computing PGS scores, the files are processed to generate necessary inputs, including modifications for liftover (genomic coordinate conversion) and formatting for PLINK-based PGS score calculation. Once the scores are computed, they are combined for each trait in preparation for further analysis using ElasticNet.
 
+
 ## Installation 
-### Data
-1. PGS IDs files
-- Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids files with suffix `*_PGS_score_ids.txt`. The prefix for the files should be the same ones used as a tag for the `bloodCells` as used in the subsequent step `#Running-the-pipeline` e.g. `baso`.
-- For example if you are interested in the phenotype, `basophil`, the folder should have a PGS score ids called `baso_PGS_score_ids.txt`. 
-    - Copy and paste ids from [PGS catalogue](https://www.pgscatalog.org/) in the format shown below.
-    - The file should have no header, just the IDS.
-  
-      ||
-      |-----------|
-      |PGS003940|
-      |PGS004727|
-      |PGS004728|
-
-2. SNP Info files for hg19/GRCh37 and hg38/GRCh38 genome builds
-- The info files should be in a tsv format with header information, as shown in the examples below.
-- If your file is in any other format, please convert it to this format using bash, python or R
-- The examples are:
-  - hg38 info files named as `hg38_snp_info_header.txt`
-
-    | chr_name  | chr_position | rsID    |
-    |-----------|--------------|---------|
-    | 10   | 76684698    | rs241         |
-    | 10   | 96480625    | rs243         |
-    | 10   | 20703742    | rs244         |  
-
-  - hg37 info files named as `hg37_snp_info_header.txt`
-    | chr_name  | chr_position | rsID    |
-    |-----------|--------------|---------|
-    | 10   | 78444456    | rs241         |
-    | 10   | 98240382     | rs243         |
-    | 10   | 20992671    | rs244         |  
-
-3. The liftover chain files
-- Please download the chain files:
-  - hg19ToHg38.over.chain.gz
-  - hg38ToHg19.over.chain.gz
-
-4. Have your gentype data ready in PLINK format
-
 ### Tools
-1.Conda
+
+`The pipeline requires Nextflow, PLINK, and R to run`
+To install the tools follow the commands below:
+
+1. Nextflow
+```
+wget -qO- https://get.nextflow.io | bash
+```
+
+2. PLINK V1.9
+```
+https://www.cog-genomics.org/plink/
+```
+
+3.Conda
+
+`conda will help with installation of R. If you already have R installed, you can skip Miniconda installation`
+
 - [Download Miniconda](https://www.anaconda.com/download/) for your specific OS to your home directory
     - Linux: `wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh`
     - Mac: `curl https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh`
@@ -70,57 +50,50 @@ The pipeline begins by retrieving PGS Score files from the PGS Catalogue, utiliz
 - If the installation is successful, you should see a list of installed packages with
     - `conda list`
 - If the command cannot be found, you can add Anaconda bin to the path using:
-    ` export PATH=~/miniconda3/bin:$PATH`
+    `export PATH=~/miniconda3/bin:$PATH`
     
-2. Nextflow
-```
-wget -qO- https://get.nextflow.io | bash
-```
-
-3. R
+4. R
 ```
 conda install R
 ```
-   
-4. PLINK V1.9
-```
-https://www.cog-genomics.org/plink/
-```
-   
-5. Liftover
-We used conda for installation but feel free to install the liftover tool using other options
-```
-conda create -n liftover
-conda activate liftover
-conda install -c bioconda ucsc-liftover
-```
+
+### Data
+1. PGS IDs files
+- Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids files with suffix `*_PGS_score_ids.txt`. The prefix for the files should be similar to the `bloodCells` in the subsequent step `#Running-the-pipeline` e.g. `baso`.
+
+- For example:
+    - If you are interested in the phenotype, `basophil`, the folder should have a PGS score ids called `baso_PGS_score_ids.txt`. 
+    - The content of the file `baso_PGS_score_ids.txt` should ge PGS ids for basophils copied from [PGS catalogue](https://www.pgscatalog.org/) in the format shown below.  
+      ||
+      |-----------|
+      |PGS003940|
+      |PGS004727|
+      |PGS004728|
+      
+    - PS: The file should have no header, just the IDS.
+ 
+ `Note: The pipeline will download data in the GRCh37/B37 format only`
+
+2. Have your genotype data ready in PLINK format ie bed, bim, fam
+
 
 ##  Running-the-pipeline
-
 ### Required Arguments
+
 | Argument  | Usage                            | Description                                                          |
 |-----------|----------------------------------|----------------------------------------------------------------------|
-| --basePath  | /new/path/to/all_blood_traits_prs_scores | Directory pattern for PGS Ids files      | 
+| --basePath  | /path/to/all_blood_traits_prs_scores | Directory pattern for PGS Ids files      | 
 | --bloodCells  | baso\rbc\wbc | Names of your phenotypes | 
-| --ref19  | hg37_snp_info_header.txt | Genome build 37 SNP Info file with header information | 
-| --ref38  | hg38_snp_info_header.txt | Genome build 38 SNP Info file with header information     | 
-| --chain_hg19_to_hg38  | hg19ToHg38.over.chain.gz | hg19 to 38 chain file     | 
-| --chain_hg38_to_hg19  | hg38ToHg19.over.chain.gz | hg38 to 19 chain file    | 
 | --plink_file  | bed\bim\fam | PLINK genotype files   | 
-| --target_genome_build| \<hg19\GRCh37>\,<hg38\GRCh38>| Path to the genome build to which the samples will be mapped |
 
 - The pipeline does not require installation as `NextFlow` will automatically fetch it from `GitHub`.
 - Modify the conf/test.config file particularly the lines below to suit the path to your data location:
 ```
 params.bloodCells = ["baso", "rbc", "wbc"]
-params.basePath = "/new/path/to/data"
-ref19 = "/new/path/to/hg37_snp_info_header.txt"
-ref38 = "/new/path/to/hg38_snp_info_header.txt"
-chain_hg19_to_hg38 = "/new/path/to/hg19ToHg38.over.chain.gz"
-chain_hg38_to_hg19 = "/new/path/to/hg38ToHg19.over.chain.gz"
-target_genome_build = 'hg38'
+params.basePath = "/path/to/all_blood_traits_prs_scores/folder"
+
 plink_file = [
-    ['UGRC', '/new/path/to/uganda.bed', '/new/path/to/uganda.bim', '/new/path/to/uganda.fam']
+    ['UGRC', '/path/to/uganda.bed', '/path/to/uganda.bim', '/path/to/uganda.fam']
 ]
 ```
 
@@ -146,9 +119,7 @@ A summary of the steps followed in our analysis include;
     - modify_score_file (Removes header from output file)
 - Downloading metadata files from PGS catalogue
     - modify metadata file format   
-    - modify_score_file_2 (Renaming rsID to chr_name:chr_position using the `snp info files` and metadata file)
-- Liftover Genomic coordinates to match target genome build eg `hg38 to hg19`
-    - modify_score_file_3 (modify format of liftover output)
+- modify_score_file_3 (makes sure there is a SNP identifier, and outputs a clean three-column score file suitable for polygenic scoring)
 - Computes PGS scores using `PLINK V1.9`
 - Modify the output and concatenate scores for each phenotype
   
