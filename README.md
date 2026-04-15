@@ -59,10 +59,10 @@ conda install R
 
 ### Data
 1. PGS IDs files
-- Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids files with suffix `*_PGS_score_ids.txt`. The prefix for the files should be similar to the `bloodCells` in the subsequent step `#Running-the-pipeline` e.g. `baso`.
+- Create a folder on your local directory called "all_blood_traits_prs_scores", which should contain all PGS ids files with suffix `*_PGS_score_ids.txt`. The prefix for the files should be similar to the `bloodCells` in the step `#Running-the-pipeline`.
 
     - For example:
-        - If you are interested in the phenotype, `basophil`, the folder should have a PGS score ids called `baso_PGS_score_ids.txt`. 
+        - If you are interested in the phenotype, `basophil`, the folder should have a PGS score file called `baso_PGS_score_ids.txt`. 
         - The content of the file `baso_PGS_score_ids.txt` should ge PGS ids for basophils copied from [PGS catalogue](https://www.pgscatalog.org/) in the format shown below.  
           ||
           |-----------|
