@@ -63,7 +63,7 @@ conda install R
 
     - For example:
         - If you are interested in the phenotype, `basophil`, the folder should have a PGS score file called `baso_PGS_score_ids.txt`. 
-        - The content of the file `baso_PGS_score_ids.txt` should ge PGS ids for basophils copied from [PGS catalogue](https://www.pgscatalog.org/) in the format shown below.  
+        - The content of the file `baso_PGS_score_ids.txt` should be PGS ids for basophils copied from [PGS catalogue](https://www.pgscatalog.org/) in the format shown below.  
           ||
           |-----------|
           |PGS003940|
@@ -89,12 +89,14 @@ conda install R
 - The pipeline does not require installation as `NextFlow` will automatically fetch it from `GitHub`.
 - Modify the conf/test.config file particularly the lines below to suit the path to your data location:
 ```
-params.bloodCells = ["baso", "rbc", "wbc"]
-params.basePath = "/path/to/all_blood_traits_prs_scores/folder"
+params.bloodCells = ["baso", "rbc", "wbc"] #the blood cells you are interested in
+
+params.basePath = "/path/to/all_blood_traits_prs_scores/folder" #path to the folder with the score files
 
 plink_file = [
     ['UGRC', '/path/to/uganda.bed', '/path/to/uganda.bim', '/path/to/uganda.fam']
-]
+] #Genotype file
+
 ```
 
 Then run command as below:
