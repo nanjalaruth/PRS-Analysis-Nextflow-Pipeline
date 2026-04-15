@@ -2,7 +2,6 @@
 
 [![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A520.04.0-brightgreen.svg)](https://www.nextflow.io/)
 
-
 ## Table of Contents
 1.  [Introduction](#Introduction)
 2.  [Installation](#Installation)
